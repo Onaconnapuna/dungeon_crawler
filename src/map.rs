@@ -21,7 +21,7 @@ impl Map {
             tiles: vec![TileType::Floor; NUM_TILES],
         }
     }
-    pub fn render(&self, ctx: &mut BTerm, camera: &Camera) {
+    /*    pub fn render(&self, ctx: &mut BTerm, camera: &Camera) {
         ctx.set_active_console(0);
         for y in camera.top_y..camera.bottom_y {
             for x in camera.left_x..camera.right_x {
@@ -50,7 +50,7 @@ impl Map {
                 }
             }
         }
-    }
+    } */
     pub fn in_bounds(&self, point: Point) -> bool {
         point.x >= 0 && point.x < SCREEN_WIDTH && point.y >= 0 && point.y < SCREEN_HEIGHT
     }
