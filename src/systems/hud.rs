@@ -2,7 +2,7 @@ use crate::prelude::*;
 
 #[system]
 #[read_component(Health)]
-#[read_componetn(Player)]
+#[read_component(Player)]
 pub fn hud(ecs: &SubWorld) {
     let mut health_query = <&Health>::query().filter(component::<Player>());
     let player_health = health_query.iter(ecs).nth(0).unwrap();
