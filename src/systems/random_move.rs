@@ -5,11 +5,10 @@ use crate::prelude::*;
 #[read_component(MovingRandomly)]
 #[read_component(Health)]
 #[read_component(Player)]
-
-pub fn random_move(ecs: &mut SubWorld, commands: &mut CommandBuffer) {
+pub fn random_move(ecs: &SubWorld, commands: &mut CommandBuffer) {
     let mut movers = <(Entity, &Point, &MovingRandomly)>::query();
     let mut positions = <(Entity, &Point, &Health)>::query();
-    movers.iter_mut(ecs).for_each(|(entity, pos, _)| {
+    movers.iter(ecs).for_each(|(entity, pos, _)| {
         let mut rng = RandomNumberGenerator::new();
         let destination = match rng.range(0, 4) {
             0 => Point::new(-1, 0),
@@ -38,5 +37,14 @@ pub fn random_move(ecs: &mut SubWorld, commands: &mut CommandBuffer) {
                 }
                 attacked = true;
             });
+        if !attacked {
+            commands.push((
+                (),
+                WantsToMove {
+                    entity: *entity,
+                    destination,
+                },
+            ));
+        }
     });
 }

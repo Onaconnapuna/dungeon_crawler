@@ -1,7 +1,7 @@
 use crate::prelude::*;
 
 #[system]
-#[read_component]
+#[read_component(WantsToAttack)]
 #[write_component(Health)]
 
 pub fn combat(ecs: &mut SubWorld, commands: &mut CommandBuffer) {

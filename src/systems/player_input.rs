@@ -38,6 +38,15 @@ pub fn player_input(
                         },
                     ));
                 });
+            if !hit_something {
+                commands.push((
+                    (),
+                    WantsToMove {
+                        entity: player_entity,
+                        destination,
+                    },
+                ));
+            }
         }
         *turn_state = TurnState::PlayerTurn;
     }
