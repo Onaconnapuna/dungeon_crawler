@@ -15,6 +15,14 @@ pub fn map_idx(x: i32, y: i32) -> usize {
     ((y * SCREEN_WIDTH) + x) as usize
 }
 
+impl Algorithm2D for Map {
+    fn dimensions(&self) -> Point {
+        Point::new(SCREEN_WIDTH, SCREEN_HEIGHT)
+    }
+    fn in_bounds(&self, point: Point) -> bool {
+        self.in_bounds(point)
+    }
+}
 impl Map {
     pub fn new() -> Self {
         Self {
