@@ -58,6 +58,7 @@ impl State {
             monster_systems: build_monster_scheduler(),
         }
     }
+    fn game_over(&mut self, ctx: &mut BTerm) {}
 }
 impl GameState for State {
     fn tick(&mut self, ctx: &mut BTerm) {
