@@ -1,5 +1,3 @@
-use std::iter::Map;
-
 use super::MapArchitect;
 use crate::prelude::*;
 
