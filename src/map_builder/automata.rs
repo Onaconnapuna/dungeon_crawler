@@ -17,6 +17,25 @@ impl MapArchitect for CellularAutomataArchitect {
 }
 
 impl CellularAutomataArchitect {
+    fn new(&mut self, rng: &mut RandomNumberGenerator) -> MapBuilder {
+        let mut mb = MapBuilder {
+            map: Map::new(),
+            rooms: Vec::new(),
+            monster_spawns: Vec::new(),
+            player_start: Point::zero(),
+            amulet_start: Point::zero(),
+        };
+        self.random_noise_map(rng, &mut mb.map);
+        for _ in 0..10 {
+            self.iteration(&mut mb.map);
+        }
+        let start = self.find_start(&mb.map);
+        mb.monster_spawns = mb.spawn_monsters(&start, rng);
+        mb.player_start = start;
+        mb.amulet_start = mb.find_most_distant();
+        mb
+    }
+
     fn random_noise_map(&mut self, rng: &mut RandomNumberGenerator, map: &mut Map) {
         map.tiles.iter_mut().for_each(|t| {
             let roll = rng.range(0, 100);
@@ -53,7 +72,7 @@ impl CellularAutomataArchitect {
         }
         map.tiles = new_tiles;
     }
-    fn find_start(&self, map: Map) -> Point {
+    fn find_start(&self, map: &Map) -> Point {
         let center = Point::new(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2);
         let closest_point = map
             .tiles
