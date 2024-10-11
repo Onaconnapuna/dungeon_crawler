@@ -12,19 +12,6 @@ impl MapArchitect for CellularAutomataArchitect {
             player_start: Point::zero(),
             amulet_start: Point::zero(),
         };
-        mb
-    }
-}
-
-impl CellularAutomataArchitect {
-    fn new(&mut self, rng: &mut RandomNumberGenerator) -> MapBuilder {
-        let mut mb = MapBuilder {
-            map: Map::new(),
-            rooms: Vec::new(),
-            monster_spawns: Vec::new(),
-            player_start: Point::zero(),
-            amulet_start: Point::zero(),
-        };
         self.random_noise_map(rng, &mut mb.map);
         for _ in 0..10 {
             self.iteration(&mut mb.map);
@@ -35,6 +22,17 @@ impl CellularAutomataArchitect {
         mb.amulet_start = mb.find_most_distant();
         mb
     }
+}
+impl CellularAutomataArchitect {
+    /*fn new(&mut self, rng: &mut RandomNumberGenerator) -> MapBuilder {
+        let mut mb = MapBuilder {
+            map: Map::new(),
+            rooms: Vec::new(),
+            monster_spawns: Vec::new(),
+            player_start: Point::zero(),
+            amulet_start: Point::zero(),
+        };
+    }*/
 
     fn random_noise_map(&mut self, rng: &mut RandomNumberGenerator, map: &mut Map) {
         map.tiles.iter_mut().for_each(|t| {
