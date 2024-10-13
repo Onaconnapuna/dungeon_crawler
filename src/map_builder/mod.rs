@@ -1,4 +1,5 @@
 mod automata;
+mod drunkard;
 mod empty;
 mod rooms;
 use crate::prelude::*;
