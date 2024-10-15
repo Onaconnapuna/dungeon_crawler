@@ -58,7 +58,7 @@ pub fn apply_prefab(mb: &mut MapBuilder, rng: &mut RandomNumberGenerator) {
             .collect();
         let mut i = 0;
         for ty in placement.y..placement.y + FORTRESS.2 {
-            for tx in placement.y..placement.x + FORTRESS.1 {
+            for tx in placement.x..placement.x + FORTRESS.1 {
                 let idx = map_idx(tx, ty);
                 let c = string_vec[i];
                 match c {
