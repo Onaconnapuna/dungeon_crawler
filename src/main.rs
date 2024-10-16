@@ -126,6 +126,7 @@ impl State {
             self.reset_game_state();
         }
     }
+    fn advance_level(&mut self) {}
 }
 impl GameState for State {
     fn tick(&mut self, ctx: &mut BTerm) {
@@ -152,6 +153,7 @@ impl GameState for State {
             }
             TurnState::GameOver => self.game_over(ctx),
             TurnState::Victory => self.victory(ctx),
+            TurnState::NextLevel => self.advance_level(),
         }
         render_draw_buffer(ctx).expect("Render Error");
     }
