@@ -13,6 +13,18 @@ Templates(
 			frequency: 1,
 		), 
 		Template(
+			entity_type: Item,
+			name: "Weak Healing Potion", glyph : '!', levels : [0, 1, 2],
+			provides: Some([("Healing", 2)]),
+			frequency: 2
+		),
+		Template(
+			entity_type: Item, 
+			name: "Rusty Sword", glyph: '/', levels: [0,1,2],
+			frequency: 1,
+			base_damage: Some(1)
+		),
+		Template(
 			entity_type: Enemy,
 			name: "Goblin", glyph : 'g', levels: [0,1,2],
 			hp: Some(1),
@@ -25,12 +37,6 @@ Templates(
 			hp: Some(1),
 			frequency: 2,
 			base_damage: Some(1)
-		),
-		Template(
-			entity_type: Item,
-			name: "Weak Healing Potion", glyph : '!', levels : [0, 1, 2],
-			provides: Some([("Healing", 2)]),
-			frequency: 2
 		),
 		Template(
 			entity_type: Enemy,
