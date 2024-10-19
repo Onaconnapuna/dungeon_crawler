@@ -162,7 +162,7 @@ impl State {
             spawn_amulet_of_yala(&mut self.ecs, map_builder.amulet_start);
         } else {
             let exit_idx = map_builder.map.point2d_to_index(map_builder.amulet_start);
-            map_builder.map.tiles[exit_idx] == TileType::Exit;
+            map_builder.map.tiles[exit_idx] = TileType::Exit;
         }
         spawn_level(
             &mut self.ecs,
