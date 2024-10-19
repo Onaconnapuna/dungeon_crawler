@@ -15,6 +15,7 @@ pub fn player_input(
     #[resource] turn_state: &mut TurnState,
 ) {
     let mut players = <(Entity, &Point)>::query().filter(component::<Player>());
+    let mut enemies = <(Entity, &Point)>::query().filter(component::<Enemy>());
     if let Some(key) = key {
         let delta = match key {
             VirtualKeyCode::Left => Point::new(-1, 0),
@@ -33,6 +34,17 @@ pub fn player_input(
                     .for_each(|(entity, _item, _item_pos)| {
                         commands.remove_component::<Point>(*entity);
                         commands.add_component(*entity, Carried(player));
+
+                        if let Ok(e) = ecs.entry_ref(*entity) {
+                            if e.get_component::<Weapon>().is_ok() {
+                                <(Entity, &Carried, &Weapon)>::query()
+                                    .iter(ecs)
+                                    .filter(|(_, c, _)| c.0 == player)
+                                    .for_each(|(e, c, w)| {
+                                        commands.remove(*e);
+                                    })
+                            }
+                        }
                     });
                 Point::new(0, 0)
             }
@@ -51,7 +63,6 @@ pub fn player_input(
             .iter(ecs)
             .find_map(|(entity, pos)| Some((*entity, *pos + delta)))
             .unwrap();
-        let mut enemies = <(Entity, &Point)>::query().filter(component::<Enemy>());
         let mut did_something = false;
         if delta.x != 0 || delta.y != 0 {
             let mut hit_something = false;
@@ -70,6 +81,7 @@ pub fn player_input(
                     ));
                 });
             if !hit_something {
+                did_something = true;
                 commands.push((
                     (),
                     WantsToMove {
@@ -78,7 +90,7 @@ pub fn player_input(
                     },
                 ));
             }
-        }
+        };
         *turn_state = TurnState::PlayerTurn;
     }
 }
