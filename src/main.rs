@@ -26,7 +26,7 @@ mod prelude {
 
 use legion::systems::Resource;
 use prelude::*;
-use std::{collections::HashSet, process::Command};
+use std::collections::HashSet;
 
 struct State {
     ecs: World,

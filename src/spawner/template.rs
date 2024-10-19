@@ -52,11 +52,13 @@ impl Templates {
         let mut commands = CommandBuffer::new(ecs);
         spawn_points.iter().for_each(|pt| {
             if let Some(entity) = rng.random_slice_entry(&available_entities) {
-                self.spawn_entity(pt, entity, &mut commands);
+                entity.spawn_entity(pt, entity, &mut commands);
             }
         });
         commands.flush(ecs);
     }
+}
+impl Template {
     pub fn spawn_entity(
         &self,
         pt: &Point,
